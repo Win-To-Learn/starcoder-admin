@@ -1,0 +1,19 @@
+<p-dataView #dv [value]="players" filterBy="username">
+    <p-header>
+        <input type="search" pInputText placeholder="Search by username" (keyup)="dv.filter($event.target.value)">
+        <div class="sc-ui-group-right">
+            <p-button label="Add Player" icon="fa fa-fw fa-user-plus" routerLink="/player/new" styleClass="ui-button-success"></p-button>
+            <!--<p-button label="Batch Add" icon="fa fa-fw fa-users" styleClass="ui-button-warning"></p-button>-->
+        </div>
+    </p-header>
+    <ng-template let-player pTemplate="listItem">
+        <div class="sc-ui-player-row">
+            <div class="sc-ui-player-username">{{player.username}}</div>
+            <div class="sc-ui-player-location">{{player.location}}</div>
+            <div class="sc-ui-player-lastlogin">Last Login: {{lastLogin(player)}}</div>
+            <div class="sc-ui-player-edit-button">
+                <p-button label="Edit" icon="fa fa-fw fa-pencil" routerLink="/player/{{player._id}}" styleClass="ui-button-info"></p-button>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>

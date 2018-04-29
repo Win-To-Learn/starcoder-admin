@@ -1,0 +1,44 @@
+<p-growl [(value)]="messages"></p-growl>
+<div class="ui-g">
+    <p-panel class="ui-g-offset-3 ui-g-6">
+        <p-header>
+            <div class="sc-ui-group-left">{{mode}} Player</div>
+            <div class="sc-ui-group-right">
+                <p-progressSpinner *ngIf="inProgress" [style]="{width: '1em', height: '1em'}"></p-progressSpinner>
+            </div>
+         </p-header>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    <label for="username">Username:</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <input required placeholder="Required" #username="ngModel" id="username" name="username" type="text" pInputText [(ngModel)]="player && player.username"/>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    <label for="password">Password:</label>
+                </div>
+                <div class="ui-grid-col-6">
+                        <input placeholder="{{mode === 'New' ? 'Required' : 'Unchanged'}}" #password="ngModel" id="password" name="password" type="text" pInputText [(ngModel)]="player && player.password"/>
+                </div>
+                <div class="ui-grid-col-2">
+                    <p-button label="Generate" styleClass="ui-button-warning" (onClick)="genPassword()"></p-button>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    <label for="location">Location:</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <p-dropdown required #location="ngModel" id="location" name="location" [options]="locations" [editable]="true" [(ngModel)]="player && player.location"></p-dropdown>
+                </div>
+            </div>
+        </div>
+        <p-footer>
+            <p-button label="Save"icon="fa fa-save" (click)="savePlayer()" iconPos="left" styleClass="ui-button-success"></p-button>
+            <p-button label="Cancel" icon="fa fa-times" routerLink="/players" iconPos="left" styleClass="ui-button-info"></p-button>
+        </p-footer>
+    </p-panel>
+</div>
