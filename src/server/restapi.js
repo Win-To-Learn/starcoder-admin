@@ -7,6 +7,8 @@
 const express = require('express');
 const jwt = require('express-jwt');
 
+const db = require('./db.js');
+
 module.exports = function (app, secret) {
     // app.use('/api', jwt({secret}), (err, req, res, next) => {
     //     if (err.name === 'UnauthorizedError') {
@@ -19,51 +21,51 @@ module.exports = function (app, secret) {
     app.use('/api', express.json());
 
     app.get('/api/player/:id', (req, res) => {
-        let player = search(req.params.id, players);
-        if (!player) {
-            res.sendStatus(404);
-        } else {
-            // FIXME: check user rights
-            res.send(player);
-        }
+        db.getPlayerById(req.params.id).then((player) => {
+            if (!player) {
+                res.sendStatus(404);
+            } else {
+                // FIXME: check user rights
+                res.send(player);
+            }
+        });
     });
 
     app.post('/api/players', (req, res) => {
         let player = req.body.player;
-        if (!player._id) {
-            req.body.player._id = (nextPlayerId++).toString();
-            this.players.push(player);
-            res.sendStatus(201);
-        } else {
-            let old = search(player._id, players);
-            if (!player) {
-                res.sendStatus(404);
-            } else {
-                Object.assign(old, req.body.player);
-                res.sendStatus(202);
-            }
-        }
-        console.log(players);
+        db.savePlayer(player).then((result) => {
+            console.log('R', result);
+            res.sendStatus(202);
+        }, (err) => {
+            console.log('E', err);
+        });
+        // if (!player._id) {
+        //     req.body.player._id = (nextPlayerId++).toString();
+        //     this.players.push(player);
+        //     res.sendStatus(201);
+        // } else {
+        //     let old = search(player._id, players);
+        //     if (!player) {
+        //         res.sendStatus(404);
+        //     } else {
+        //         Object.assign(old, req.body.player);
+        //         res.sendStatus(202);
+        //     }
+        // }
+        // console.log(players);
     });
 
     app.get('/api/players/org/:id', (req, res) => {
-        let result = [];
-        for (let player of players) {
-            if (player.organization._id === req.params.id) {
-                result.push(player);
-            }
-        }
-        if (!result.length) {
-            res.sendStatus(404);
-        } else {
-            res.send(result);
-        }
+        db.getPlayersByOrg(req.params.id).then((result) => res.send(result));
+        // let result = [];
+        // for (let player of players) {
+        //     if (player.organization._id === req.params.id) {
+        //         result.push(player);
+        //     }
+        // }
+        //res.send(result);
     });
 
-    // FIXME
-    app.get('/api/test', (req, res) => {
-        res.send('check' + JSON.stringify(req.user));
-    });
 };
 
 // Test Data

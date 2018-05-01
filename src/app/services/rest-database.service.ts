@@ -69,8 +69,8 @@ function search (id, a) {
 
 // Test data
 const organizations: Organization[] = [
-    {_id: '11', name: 'Win2Learn', locations: ['Columbia', 'New York', 'Boston']},
-    {_id: '12', name: 'Longleaf Middle', locations: ['Columbia']}
+    {_id: "5ae6560ab2d69d5714c52bfe", name: 'Win2Learn', locations: ['Columbia', 'New York', 'Boston']},
+    {_id: "5ae65a21b2d69d5714c52c6c", name: 'Longleaf Middle', locations: ['Columbia']}
 ];
 
 const users: User[] = [

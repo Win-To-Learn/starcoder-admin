@@ -10,11 +10,15 @@ const app = express();
 
 const restapi = require('./restapi');
 const loginapi = require('./loginapi');
+const db = require('./db.js');
 
 // Config ///////
 const PORT = 4200;
 const secret = 'S/P9ZjBSgaI8n9AHwG3GghgG4mf4lDscF6TH7M8AWa5KtTW2OpkNZZpB9MJqD4sc';
 const basedir = path.join(__dirname, '../../dist');
+const dbUri = 'mongodb://localhost:27017';
+const dbName = 'starcoder';
+const dbCollections = {players: 'people', organizations: 'organizations', users: 'users'};
 // End Config //
 
 // Logging
@@ -23,8 +27,8 @@ app.use((req, res, next) => {
     next();
 });
 
-restapi(app, secret);
-loginapi(app, secret);
+restapi(app, secret, dbUri);
+loginapi(app, secret, dbUri);
 
 const appPaths = [
     '/',
@@ -57,6 +61,9 @@ for (let f of staticFiles) {
     }
 }
 
-app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
+db.connect(dbUri, dbName, dbCollections).then(() => {
+    console.log('Connected to mongodb');
+    app.listen(PORT, () => {
+        console.log(`Listening on port ${PORT}`);
+    });
 });

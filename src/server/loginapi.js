@@ -7,6 +7,8 @@
 //const jwt = require('express-jwt');
 const jsonwebtoken = require('jsonwebtoken');
 
+const db = require('./db.js');
+
 module.exports = function (app, secret) {
     app.get('/login/test', (req, res) => {
         res.send(jsonwebtoken.sign({id: "123", username: 'jay'}, secret, {expiresIn: '1 week'}));
