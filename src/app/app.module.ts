@@ -12,19 +12,22 @@ import { CustomPrimeNGModule } from './custom-primeng.module';
 import {RestDatabaseService as DatabaseService} from './services/rest-database.service';
 import {GeneratePasswordService} from './services/generate-password.service';
 import {SessionService} from './services/session.service';
+import {AuthGuard} from './auth-guard.service';
 
 import { AppComponent } from './app.component';
 import {PlayerListComponent} from './player-list.component';
 import {EditPlayerComponent} from './edit-player.component';
-import {RegimeListComponent} from './regime-list.component';
-import {EditRegimeComponent} from './edit-regime.component';
+//import {RegimeListComponent} from './regime-list.component';
+//import {EditRegimeComponent} from './edit-regime.component';
 import {MainToolbarComponent} from './main-toolbar.component';
+import {LoginComponent} from './login.component';
 
 const appRoutes: Routes = [
-    {path: 'players', component: PlayerListComponent},
-    {path: 'player/:id', component: EditPlayerComponent},
-    {path: 'regimes', component: RegimeListComponent},
-    {path: 'regime/:id', component: EditRegimeComponent}
+    {path: 'players', component: PlayerListComponent, canActivate: [AuthGuard]},
+    {path: 'player/:id', component: EditPlayerComponent, canActivate: [AuthGuard]},
+//    {path: 'regimes', component: RegimeListComponent},
+//    {path: 'regime/:id', component: EditRegimeComponent},
+    {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
@@ -32,9 +35,10 @@ const appRoutes: Routes = [
       AppComponent,
       PlayerListComponent,
       EditPlayerComponent,
-      RegimeListComponent,
-      EditRegimeComponent,
-      MainToolbarComponent
+//      RegimeListComponent,
+//      EditRegimeComponent,
+      MainToolbarComponent,
+      LoginComponent
   ],
   imports: [
       RouterModule.forRoot(appRoutes),
@@ -52,7 +56,8 @@ const appRoutes: Routes = [
   providers: [
       DatabaseService,
       GeneratePasswordService,
-      SessionService
+      SessionService,
+      AuthGuard
   ],
   bootstrap: [AppComponent]
 })

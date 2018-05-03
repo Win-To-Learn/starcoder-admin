@@ -16,9 +16,10 @@ const db = require('./db.js');
 const PORT = 4200;
 const secret = 'S/P9ZjBSgaI8n9AHwG3GghgG4mf4lDscF6TH7M8AWa5KtTW2OpkNZZpB9MJqD4sc';
 const basedir = path.join(__dirname, '../../dist');
-const dbUri = 'mongodb://localhost:27017';
+//const dbUri = 'mongodb://localhost:27017';
+const dbUri = 'mongodb://8f430f6d1c664352bc7a03fd25a4eeeb:a0bc1ff6774045ceae6b8b37a9292910@ds061200.mongolab.com:61200/starcoder';
 const dbName = 'starcoder';
-const dbCollections = {players: 'people', organizations: 'organizations', users: 'users'};
+const dbCollections = {players: 'testpeople', organizations: 'testorganizations', users: 'testusers'};
 // End Config //
 
 // Logging
@@ -33,7 +34,8 @@ loginapi(app, secret, dbUri);
 const appPaths = [
     '/',
     '/players',
-    '/player/:id'
+    '/player/:id',
+    '/login'
 ];
 for (let p of appPaths) {
     app.get(p, (req, res) => {

@@ -51,6 +51,10 @@ label {
     float: left;
 }
 
+.sc-ui-center {
+    display: flex;
+    justify-content: space-around;
+}
 
 @keyframes ui-progress-spinner-color {
     100%,

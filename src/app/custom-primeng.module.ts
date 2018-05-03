@@ -15,6 +15,7 @@ import {DataViewModule} from 'primeng/dataview';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {GrowlModule} from 'primeng/growl';
 import {MessageModule} from 'primeng/message';
+import {MessagesModule} from 'primeng/messages';
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import {MessageModule} from 'primeng/message';
         DataViewModule,
         ProgressSpinnerModule,
         GrowlModule,
-        MessageModule
+        MessageModule,
+        MessagesModule
     ],
     exports: [
         ButtonModule,
@@ -39,7 +41,8 @@ import {MessageModule} from 'primeng/message';
         DataViewModule,
         ProgressSpinnerModule,
         GrowlModule,
-        MessageModule
+        MessageModule,
+        MessagesModule
     ]
 })
 export class CustomPrimeNGModule { }

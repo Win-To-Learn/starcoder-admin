@@ -31,23 +31,29 @@ export class EditPlayerComponent implements OnInit {
     ngOnInit () {
         this.getPlayer();
         this.getOrganization();
-        this.getLocations();
+        //this.getLocations();
     }
 
-    getLocations () {
-        this.database.getLocations().subscribe((locations) => {
-            this.locations = [{label: 'Select Location', value: ''}];
-            for (let location of locations) {
-                this.locations.push({label: location, value: location});
-            }
-        });
-    }
+    // getLocations () {
+    //     this.database.getLocations().subscribe((locations) => {
+    //         this.locations = [{label: 'Select Location', value: ''}];
+    //         for (let location of locations) {
+    //             this.locations.push({label: location, value: location});
+    //         }
+    //     });
+    // }
 
     getOrganization () {
         this.session.selectedOrg.subscribe((org) => {
             this.organization = org;
             if (this.player) {
                 this.player.organization = org;
+            }
+            if (org) {
+                this.locations = [{label: 'Select Location', value: ''}];
+                for (let location of org.locations) {
+                    this.locations.push({label: location, value: location});
+                }
             }
         });
     }

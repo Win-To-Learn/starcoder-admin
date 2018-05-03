@@ -1,0 +1,31 @@
+<div class="ui-g">
+    <p-panel class="ui-g-offset-4 ui-g-4">
+        <p-header>
+            Login
+        </p-header>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    <label for="username">Username:</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <input required placeholder="Required" [(ngModel)]="username" id="username"type="text"/>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4">
+                    <label for="password">Password:</label>
+                </div>
+                <div class="ui-grid-col-8">
+                    <input required [(ngModel)]="password" id="password"type="password"/>
+                </div>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-12"><p-messages [(value)]="msgs"></p-messages></div>
+        </div>
+        <p-footer><div class="sc-ui-center">
+            <p-button label="Login" icon="fa fa-fw fa-sign-in" (click)="login()" styleClass="ui-button-success"></p-button>
+        </div></p-footer>
+    </p-panel>
+</div>

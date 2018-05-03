@@ -29,16 +29,16 @@ module.exports = {
     getPlayerById: function (id) {
         return players.findOne({_id: OID(id)}).then((doc) => {
             if (!doc) {
-                return Promise.resolve(null);
+                return null;
             }
-            return Promise.resolve({
+            return {
                 _id: doc._id,
                 username: doc.username,
                 password: doc.ptPassword,
                 logins: doc.logins,
                 location: doc.location,
                 organization: doc.organization
-            });
+            };
         });
     },
 
@@ -62,7 +62,7 @@ module.exports = {
                 location: player.location
             };
             if (player.password) {
-                updateSpec.ptPassword = player.password
+                updateSpec.ptPassword = player.password;
                 updateSpec.password = bcrypt.hashSync(player.password, bcrypt.genSaltSync());
             }
             return players.findOneAndUpdate({_id: OID(player._id)}, {$set: updateSpec});
@@ -72,5 +72,13 @@ module.exports = {
             player.organization = OID(player.organization._id);
             return players.insertOne(player);
         }
+    },
+
+    getUserByName: function (username) {
+        return users.findOne({username});
+    },
+
+    getMultipleOrganizations: function (oids) {
+        return orgs.find({_id: {$in: oids}}).toArray();
     }
 };

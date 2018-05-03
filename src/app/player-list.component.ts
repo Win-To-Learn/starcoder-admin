@@ -20,9 +20,11 @@ export class PlayerListComponent implements OnInit {
     ngOnInit () {
         this.session.selectedOrg.subscribe((org) => {
             this.organization = org;
-            this.database.getPlayersByOrg(org._id).subscribe((players) => {
-                this.players = players;
-            });
+            if (org) {
+                this.database.getPlayersByOrg(org._id).subscribe((players) => {
+                    this.players = players;
+                });
+            }
         });
 
     }

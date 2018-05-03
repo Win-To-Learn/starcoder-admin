@@ -3,9 +3,10 @@
     <div class="ui-toolbar-group-left">
         Starcoder Admin
     </div>
-    <div class="ui-toolbar-group-right">
+    <div class="ui-toolbar-group-right" *ngIf="user">
         <span class="sc-ui-user">{{user.fullname}}</span>
         <p-dropdown [options]="orgOptions" (onChange)="orgChange($event)" *ngIf="user.organizations.length > 1"></p-dropdown>
-        <span class="sc-ui-org-box" *ngIf="user.organizations.length === 1">{{selectedOrganization.name}}</span>
+        <span class="sc-ui-org-box" *ngIf="user.organizations.length === 1">{{user.organizations[0].name}}</span>
+        <p-button icon="fa fa-fw fa-sign-out" styleClass="ui-button-warning" (click)="logout()"></p-button>
     </div>
 </p-toolbar>
