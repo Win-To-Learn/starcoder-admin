@@ -15,7 +15,6 @@ const db = require('./db.js');
 
 module.exports = function (app, secret) {
     app.post('/login/credentials', express.json(), (req, res) => {
-        console.log('Checking', req.body.username, req.body.password);
         checkLogin(req.body.username, req.body.password).then((user) => {
             if (user) {
                 db.getMultipleOrganizations(user.organizations).then((orgs) => {

@@ -31,6 +31,12 @@ module.exports = function (app, secret) {
         });
     });
 
+    app.get('/api/org/:id/locations', (req, res) => {
+        db.getLocationsByOrg(req.params.id).then((locations) => {
+            res.send(locations);
+        });
+    });
+
     app.post('/api/players', (req, res) => {
         let player = req.body.player;
         db.savePlayer(player).then((result) => {

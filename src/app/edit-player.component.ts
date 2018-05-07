@@ -34,14 +34,14 @@ export class EditPlayerComponent implements OnInit {
         //this.getLocations();
     }
 
-    // getLocations () {
-    //     this.database.getLocations().subscribe((locations) => {
-    //         this.locations = [{label: 'Select Location', value: ''}];
-    //         for (let location of locations) {
-    //             this.locations.push({label: location, value: location});
-    //         }
-    //     });
-    // }
+    setLocations (orgId) {
+        this.database.getLocationsByOrg(orgId).subscribe((locations) => {
+            this.locations = [{label: 'Select Location', value: ''}];
+            for (let location of locations) {
+                this.locations.push({label: location, value: location});
+            }
+        });
+    }
 
     getOrganization () {
         this.session.selectedOrg.subscribe((org) => {
@@ -50,10 +50,7 @@ export class EditPlayerComponent implements OnInit {
                 this.player.organization = org;
             }
             if (org) {
-                this.locations = [{label: 'Select Location', value: ''}];
-                for (let location of org.locations) {
-                    this.locations.push({label: location, value: location});
-                }
+                this.setLocations(org._id);
             }
         });
     }

@@ -26,6 +26,11 @@ export class RestDatabaseService {
         return this.http.get<Player[]>(`/api/players/org/${org_id}`, {headers});
     }
 
+    getLocationsByOrg (org_id): Observable<string[]> {
+        let headers = new HttpHeaders({'Authorization': `Bearer ${this.session.getToken()}`});
+        return this.http.get<string[]>(`/api/org/${org_id}/locations`, {headers});
+    }
+
     // getLocations (): Observable<string[]> {
     //     let s = new Set();
     //     for (let player of players) {

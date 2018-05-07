@@ -54,6 +54,12 @@ module.exports = {
         })).toArray();
     },
 
+    getLocationsByOrg: function (orgId) {
+        return orgs.findOne({_id: OID(orgId)}, {projection: {locations: 1}}).then((result)=> {
+            return result.locations;
+        });
+    },
+
     savePlayer: function (player) {
         let promise;
         let org_id = OID(player.organization._id);
