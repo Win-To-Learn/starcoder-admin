@@ -91,6 +91,9 @@ export class EditPlayerComponent implements OnInit {
     savePlayer () {
         //this.inProgress = true;
         this.database.savePlayer(this.player);
+        if (this.organization.locations.indexOf(this.player.location) === -1) {
+            this.organization.locations.push(this.player.location);
+        }
         this.router.navigate(['/players']);
     }
 }

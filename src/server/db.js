@@ -55,6 +55,8 @@ module.exports = {
     },
 
     savePlayer: function (player) {
+        let promise;
+        let org_id = OID(player.organization._id);
         if (player._id) {
             // update
             let updateSpec = {
@@ -65,13 +67,18 @@ module.exports = {
                 updateSpec.ptPassword = player.password;
                 updateSpec.password = bcrypt.hashSync(player.password, bcrypt.genSaltSync());
             }
-            return players.findOneAndUpdate({_id: OID(player._id)}, {$set: updateSpec});
+            promise = players.findOneAndUpdate({_id: OID(player._id)}, {$set: updateSpec});
         } else {
             player.ptPassword = player.password;
             player.password = bcrypt.hashSync(player.password, bcrypt.genSaltSync());
-            player.organization = OID(player.organization._id);
-            return players.insertOne(player);
+            player.organization = org_id;
+            promise = players.insertOne(player);
         }
+        return promise.then((result) => {
+            return orgs.findOneAndUpdate({_id: org_id}, {$addToSet: {locations: player.location}}).then(() => {
+                return result;
+            });
+        });
     },
 
     getUserByName: function (username) {
