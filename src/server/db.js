@@ -78,6 +78,8 @@ module.exports = {
             player.ptPassword = player.password;
             player.password = bcrypt.hashSync(player.password, bcrypt.genSaltSync());
             player.organization = org_id;
+            player.cType = 'Player';
+            player.codeSnippets = {};
             promise = players.insertOne(player);
         }
         return promise.then((result) => {
