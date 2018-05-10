@@ -1,5 +1,13 @@
 ## Building
 
+Make sure you have angular-cli installed globally:
+
+```
+npm install -g @angular/cli
+```
+
+Then:
+
 ```
 npm install
 ng build

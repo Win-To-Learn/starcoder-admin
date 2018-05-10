@@ -35,7 +35,8 @@ const appPaths = [
     '/',
     '/players',
     '/player/:id',
-    '/login'
+    '/login',
+    '/billing'
 ];
 for (let p of appPaths) {
     app.get(p, (req, res) => {

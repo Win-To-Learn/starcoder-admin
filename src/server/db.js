@@ -54,6 +54,22 @@ module.exports = {
         })).toArray();
     },
 
+    getPlayersByOrgAndLogin (orgId, month, year) {
+        let start = new Date(year, month, 1);
+        let end;
+        if (month < 11) {
+            end = new Date(year, month+1, 1);
+        } else {
+            end = new Date(year+1, 0, 1);
+        }
+        return players.find({organization: OID(orgId), logins: {$elemMatch: {$gte: start, $lt: end}}}).map((doc) => ({
+            _id: doc._id,
+            username: doc.username,
+            logins: doc.logins.filter((d) => ((d >= start) && (d < end))),
+            location: doc.location
+        })).toArray();
+    },
+
     getLocationsByOrg: function (orgId) {
         return orgs.findOne({_id: OID(orgId)}, {projection: {locations: 1}}).then((result)=> {
             return result.locations;

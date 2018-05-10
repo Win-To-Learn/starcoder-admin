@@ -50,6 +50,11 @@ module.exports = function (app, secret) {
         db.getPlayersByOrg(req.params.id).then((result) => res.send(result));
     });
 
+    app.get('/api/players/org/:id/login/:month/:year', (req, res) => {
+        db.getPlayersByOrgAndLogin(req.params.id,
+            Number.parseInt(req.params.month), Number.parseInt(req.params.year)).then((result) => res.send(result));
+    });
+
 };
 
 // Test Data

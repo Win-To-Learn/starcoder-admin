@@ -17,6 +17,7 @@ import {AuthGuard} from './auth-guard.service';
 import { AppComponent } from './app.component';
 import {PlayerListComponent} from './player-list.component';
 import {EditPlayerComponent} from './edit-player.component';
+import {BillingComponent} from './billing.component';
 //import {RegimeListComponent} from './regime-list.component';
 //import {EditRegimeComponent} from './edit-regime.component';
 import {MainToolbarComponent} from './main-toolbar.component';
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
     {path: 'player/:id', component: EditPlayerComponent, canActivate: [AuthGuard]},
 //    {path: 'regimes', component: RegimeListComponent},
 //    {path: 'regime/:id', component: EditRegimeComponent},
-    {path: 'login', component: LoginComponent}
+    {path: 'login', component: LoginComponent},
+    {path: 'billing', component: BillingComponent}
 ];
 
 @NgModule({
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
 //      RegimeListComponent,
 //      EditRegimeComponent,
       MainToolbarComponent,
+      BillingComponent,
       LoginComponent
   ],
   imports: [

@@ -1,0 +1,29 @@
+<div class="ui-g">
+<p-toolbar class="ui-g-offset-2 ui-g-8">
+    <div class="ui-toolbar-group-left">
+        Billing for
+        <p-dropdown [options]="months" (onChange)="updatePlayers()" [(ngModel)]="month"></p-dropdown>
+    </div>
+    <div class="ui-toolbar-group-right">
+        {{players.length}} players @ ${{rate}} each = ${{players.length * rate}}
+    </div>
+</p-toolbar>
+</div>
+<div class="ui-g">
+    <p-table [value]="players" class="ui-g-offset-2 ui-g-8">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Username</th>
+                <th>Location</th>
+                <th>Logins</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-player>
+            <tr align="center">
+                <td>{{player.username}}</td>
+                <td>{{player.location}}</td>
+                <td>{{player.logins.length}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
