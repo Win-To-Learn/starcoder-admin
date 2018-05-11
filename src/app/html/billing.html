@@ -15,14 +15,14 @@
             <tr>
                 <th>Username</th>
                 <th>Location</th>
-                <th>Logins</th>
+                <th>Last Login</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-player>
             <tr align="center">
                 <td>{{player.username}}</td>
                 <td>{{player.location}}</td>
-                <td>{{player.logins.length}}</td>
+                <td>{{player.logins[player.logins.length-1] | date}}</td>
             </tr>
         </ng-template>
     </p-table>
